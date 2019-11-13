@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="mustruut-gradle.main" target="11" />
+      <module name="mustruut-gradle.test" target="11" />
+      <module name="mustruut-gradle_-_Copy.main" target="11" />
+      <module name="mustruut-gradle_-_Copy.test" target="11" />
+      <module name="OOPr-hmat-1.main" target="11" />
+      <module name="OOPr-hmat-1.test" target="11" />
+      <module name="RÜHMATÖÖ.main" target="11" />
+      <module name="RÜHMATÖÖ.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
