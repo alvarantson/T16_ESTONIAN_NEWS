@@ -1,6 +1,7 @@
 package oop;
 
 import javafx.scene.control.CheckBox;
+import oop.objects.Ajaleht;
 
 public class AjaleheCheck extends CheckBox {
 

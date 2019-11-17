@@ -16,6 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import oop.ajalehed.*;
+import oop.kaapimine.KorrastajaLoendur;
+import oop.objects.Ajaleht;
 
 import java.io.IOException;
 import java.util.*;
@@ -45,7 +48,7 @@ public class TestKorrastus extends Application {
 
         GridPane gp1b = new GridPane();
         GridPane.setHalignment(gp1b, HPos.RIGHT);
-        List<Ajaleht> koikAjalehed = Arrays.asList(new Postimees(), new Õhtuleht(), new Elu24(), new Telegram(),
+        List<Ajaleht> koikAjalehed = Arrays.asList(new Postimees(), new Õhtuleht(), new Telegram(),
                 new Delfi(), new AnneJaStiil(), new Kroonika());
         for (int i = 0; i < koikAjalehed.size(); i++) {
             CheckBox check = new AjaleheCheck(koikAjalehed.get(i).getNimi(), koikAjalehed.get(i));
