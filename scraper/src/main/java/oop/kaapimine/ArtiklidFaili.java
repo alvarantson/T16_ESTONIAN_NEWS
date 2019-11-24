@@ -20,7 +20,7 @@ public class ArtiklidFaili {
         this.globalList = new HashMap<>();
     }
 
-    public void kirjuta(List<Artikkel> artiklid, List<String> keelatud) throws FileNotFoundException {
+    public static void kirjuta(List<Artikkel> artiklid, List<String> keelatud) throws FileNotFoundException {
         try (PrintWriter pw = new PrintWriter("artiklid.csv")) {
             for (Artikkel artikkel : artiklid) {
                 pw.println(artikkel.getAeg() + "\t" +
@@ -39,7 +39,7 @@ public class ArtiklidFaili {
     public void sisse(List<Ajaleht> ajalehed, List<String> keelatud) throws IOException {
         System.out.println("Alustasin kaapimist...");
         for (Ajaleht ajaleht : ajalehed) {
-            kirjuta(ajaleht.getArtiklid(), keelatud);
+            ajaleht.getArtiklid();
             System.out.println(ajaleht.getNimi() + " done!");
         }
     }
