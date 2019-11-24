@@ -21,7 +21,9 @@ public class ArtiklidFaili {
     }
 
     public static void kirjuta(List<Artikkel> artiklid, List<String> keelatud) throws FileNotFoundException {
-        try (PrintWriter pw = new PrintWriter("artiklid.csv")) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(
+                new File("artiklid.txt"),
+                true))) {
             for (Artikkel artikkel : artiklid) {
                 pw.println(artikkel.getAeg() + "\t" +
                         artikkel.getLink() + "\t" +

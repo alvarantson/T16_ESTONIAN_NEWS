@@ -20,7 +20,7 @@ public class Postimehelised extends Ajaleht {
 
     public Postimehelised(String url, String nimi) {
         super(url, nimi);
-        this.paramUrlid = genereeri2KuuKaupaParamUrl(12);
+        this.paramUrlid = genereeri1PaevaKaupaParamUrl(5);
     }
 
     public List<Artikkel> getArtiklid() throws IOException {
@@ -36,6 +36,7 @@ public class Postimehelised extends Ajaleht {
             org.jsoup.nodes.Document document = Jsoup.connect(paramUrl).get();
             String url = super.getUrl();
             while(true) {
+                tagastus = new ArrayList<>();
                 Elements searchResults = document.select(".search-results__item");
                 for (Element result: searchResults) {
 
@@ -81,6 +82,7 @@ public class Postimehelised extends Ajaleht {
                 }
                 Elements järk = document.select(".pagination__link");
                 Element element = null;
+                ArtiklidFaili.kirjuta(tagastus, null);
                 for (Element i: järk) {
                     if (i.text().equals("JÄRGMINE")) {
                         element = i;
@@ -99,7 +101,6 @@ public class Postimehelised extends Ajaleht {
                         continue;
                     }
                 }
-                ArtiklidFaili.kirjuta(tagastus, null);
             }
         }
         return tagastus;
