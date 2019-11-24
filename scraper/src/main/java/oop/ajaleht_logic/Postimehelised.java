@@ -20,7 +20,7 @@ public class Postimehelised extends Ajaleht {
 
     public Postimehelised(String url, String nimi) {
         super(url, nimi);
-        this.paramUrlid = genereeri1PaevaKaupaParamUrl(5);
+        this.paramUrlid = genereeriKuuKaupaParamUrl(24);
     }
 
     public List<Artikkel> getArtiklid() throws IOException {
@@ -107,18 +107,19 @@ public class Postimehelised extends Ajaleht {
     }
 
 
-    public List<String> genereeri2KuuKaupaParamUrl(int korda) {
+    public List<String> genereeriKuuKaupaParamUrl(int korda) {
         String baas = "https://www.postimees.ee/search?sections=81&fields=body%2Cauthors%2Cheadline&page=0&";
         List<String> tulemus = new ArrayList<>();
         LocalDate lopp = LocalDate.now();
-        LocalDate algus = lopp.minusMonths(2);
+        lopp = lopp.minusDays(1);
+        LocalDate algus = lopp.minusMonths(1);
         lopp = lopp.minusDays(1);
         for(int i = 0; i < korda; i++) {
             String start = algus.toString();
             String end = lopp.toString();
             tulemus.add(baas + "start=" + start + "&end=" + end);
-            lopp = lopp.minusMonths(2);
-            algus = algus.minusMonths(2);
+            lopp = lopp.minusMonths(1);
+            algus = algus.minusMonths(1);
         }
         System.out.println(tulemus);
         return tulemus;

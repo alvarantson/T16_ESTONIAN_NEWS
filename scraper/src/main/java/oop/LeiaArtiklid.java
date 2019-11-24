@@ -7,11 +7,12 @@ import oop.objects.Ajaleht;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class LeiaArtiklid {
 
-    private static List<Ajaleht> ajalehed = Arrays.asList(new Postimees()
+    private static List<Ajaleht> ajalehed = Collections.singletonList(new Postimees()
             //,new Õhtuleht(), new Elu24(), new Telegram(),
             //new Delfi(), new AnneJaStiil(), new Kroonika()
     );

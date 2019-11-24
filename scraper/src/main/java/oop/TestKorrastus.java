@@ -1,4 +1,4 @@
-package oop;
+/*package oop;
 
 
 import javafx.application.Application;
@@ -172,4 +172,4 @@ public class TestKorrastus extends Application {
         });
     }
 
-}
+}*/
