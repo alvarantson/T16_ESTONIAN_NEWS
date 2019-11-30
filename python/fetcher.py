@@ -13,14 +13,22 @@ class ConnectionWrapper:
         await self.session.close()
 
     async def get(self, url):
+        retry = 0
         while True:
             resp = await self.session.get(url)
             if resp.status == 200:
                 return resp
+            if retry > 4:
+                return
+            retry += 1
 
 async def fetch_article(article, queue, conn):
-    article['article'] = await (await conn.get(article['article'])).text()
-    queue.put(article)
+    raw = await conn.get(article['article'])
+    if not raw:
+        return
+    article['article'] = await raw.text()
+    queue.put(article, False)
+
 
 
 async def fetch_articles(site, queue, conn):
@@ -30,7 +38,7 @@ async def fetch_articles(site, queue, conn):
             await asyncio.sleep(1/RATE_PER_SITE)
 
 if __name__ == '__main__':
-    RATE_PER_SITE = 0  # ära pane 0
+    RATE_PER_SITE = 10  # ära pane 0
     PARSERS = 1
 
     mgr = mp.Manager()
