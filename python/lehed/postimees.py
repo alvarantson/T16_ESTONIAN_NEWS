@@ -9,28 +9,34 @@ class Postimees:
 
     async def search(self, conn):
         done = set()
-        for section in self._SECTIONS - done:
-            resp = await (await conn.get(f'https://services.postimees.ee/rest/v1/sections/{section}/articles?limit=100'
-                                         + ("&end=" + self.latest[section] if self.latest[section] else ""))).json()
-            if len(resp) < 100:
-                done.add(section)
-            for raw in resp:
-                if not raw['isPremium']:
-                    yield {
-                        'page': 'postimees',
-                        'id': raw['id'],
-                        'published': raw['datePublished'],
-                        'headline': raw['headline'],
-                        'facebook_engagement': raw['meta']['facebook']['engagement']
-                        if 'meta' in raw and 'facebook' in raw['meta'] else None,
-                        'comments_count': raw['meta']['commentCount'],
-                        'read_count': raw['meta']['readCount'],
-                        'authors': {author['name'] for author in raw['authors']},
-                        'sections': {section['id'] for section in raw['sections']},
-                        'article': f"https://postimees.ee/{raw['id']}"
-                    }
+        while self._SECTIONS - done:
+            for section in self._SECTIONS - done:
+                raw = await conn.get(f'https://services.postimees.ee/rest/v1/sections/{section}/articles?limit=100'
+                                             + ("&end=" + self.latest[section] if self.latest[section] else ""))
+                if not raw:
+                    done.add(section)
+                    continue
+                resp = await raw.json()
+                if len(resp) < 100:
+                    done.add(section)
+                for raw in resp:
+                    if not raw['isPremium']:
+                        yield {
+                            'page': 'postimees',
+                            'id': raw['id'],
+                            'published': raw['datePublished'],
+                            'headline': raw['headline'],
+                            'facebook_engagement': raw['meta']['facebook']['engagement']
+                            if 'meta' in raw and 'facebook' in raw['meta'] else None,
+                            'comments_count': raw['meta']['commentCount'],
+                            'read_count': raw['meta']['readCount'],
+                            'authors': {author['name'] for author in raw['authors']},
+                            'sections': {section['id'] for section in raw['sections']},
+                            'article': f"https://postimees.ee/{raw['id']}"
+                        }
 
-            self.latest[section] = raw['datePublished']
+                self.latest[section] = raw['datePublished']
+
 
     @staticmethod
     def parse_html(soup):
