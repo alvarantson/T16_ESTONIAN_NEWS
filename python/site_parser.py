@@ -19,7 +19,7 @@ class Parser(mp.Process):
                 print('\rparsing', end='')
                 r = self.queue.get()
                 r['article'] = self.pages[r['page']].parse_html(bs4.BeautifulSoup(r['article'], 'lxml'))
-                with open(r['page']+'.txt', 'a', encoding='utf8', newline='') as csvf:
+                with open('../data/' +  r['page']+'.txt', 'a', encoding='utf8', newline='') as csvf:
                     csv.DictWriter(csvf, fieldnames=r.keys(), delimiter='\t').writerow(r)
                 self.count += 1
                 print(f'\r{self.count}: {r["published"]} - {r["headline"]}')

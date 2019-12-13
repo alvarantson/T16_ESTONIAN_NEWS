@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import csv
 
-data = pd.read_csv("../data/postimees.txt", sep="\t", names=['website', 'id', 'datetime', 'title', 'share_count',
+data = pd.read_csv("../../data/postimees.txt", sep="\t", names=['website', 'id', 'datetime', 'title', 'share_count',
                                                              'comment_count', 'read_count', 'author', 'section',
                                                              'content'])
 data = data.drop_duplicates(subset=['id'])
@@ -47,6 +47,6 @@ if __name__ == '__main__':
         thread.join()
 
     print(d)
-    w = csv.writer(open("count_for_each_title.csv", "w", encoding="utf-8"))
+    w = csv.writer(open("../../data/uniq_words_in_title.csv", "w", encoding="utf-8"))
     for key, val in d.items():
         w.writerow([key, val[0], val[1]])

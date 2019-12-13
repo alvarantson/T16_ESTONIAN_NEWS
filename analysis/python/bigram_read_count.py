@@ -8,7 +8,7 @@ import csv
 from nltk.collocations import BigramCollocationFinder
 from nltk import word_tokenize
 
-data = pd.read_csv("../../data/postimees.txt", sep="\t", names=['website', 'id', 'datetime', 'title', 'share_count',
+data = pd.read_csv("../data/postimees.txt", sep="\t", names=['website', 'id', 'datetime', 'title', 'share_count',
                                                              'comment_count', 'read_count', 'author', 'section',
                                                              'content'])
 data = data.drop_duplicates(subset=['id'])
@@ -20,16 +20,15 @@ data['share_count'] = pd.to_numeric(data['share_count'],errors='coerce')
 
 def findWords(d, i):
     mitmes = i
-    for row in data[i:i + 17834]:
+    for index, row in data[i:i + 17834].iterrows():
         if mitmes % 100 == 0:
             print(str(mitmes) + '. artikkel')
         finder = BigramCollocationFinder.from_words(word_tokenize(str(row.title)))
-        for s, n in finder.ngram_fd.items():
-            word = s[0]
+        for word, n in finder.ngram_fd.items():
             if word in d:
-                d[word] = d[word] + row.read_count
+                d[word] = [d[word][0] + row.read_count, d[word][1] + 1]
             else:
-                d[word] = row.read_count
+                d[word] = [row.read_count, 1]
         mitmes += 1
 
 
@@ -54,6 +53,6 @@ if __name__ == '__main__':
         thread.join()
 
     print(d)
-    w = csv.writer(open("../data/bigram_read_count.csv", "w", encoding="utf-8"))
+    w = csv.writer(open("../../data/bigram_read_count.csv", "w", encoding="utf-8"))
     for key, val in d.items():
-        w.writerow([key, val])
+        w.writerow([key, val[0], val[1]])

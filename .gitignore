@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# exclude everything
+data/*
+
+# exception to the rule
+!somefolder/example.txt
