@@ -47,7 +47,7 @@ if __name__ == '__main__':
         thread.join()
 
     print(d)
-    w = csv.writer(open("../../data/title_word_amount_all.csv", "w", encoding="utf-8"))
+    w = csv.writer(open("../../data/word_amount_all.csv", "w", encoding="utf-8"))
     for key, val in d.items():
         w.writerow([key, val])
 
