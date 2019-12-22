@@ -1,6 +1,7 @@
 ## Introduction
+A data science project with the aim to scrape data from Estonian news website Postimees, and to analyse it.
 Java scraper and python scraper can be found in java/ and python/ respectively. Python scaraper was used to gather the data.
-All data files will appear in the data/ folder.
+All data files will appear in the data/ folder. Data mining and machine learning code can be found in analysis/.
 
 ## Running the scraper
 Install the requirements noted in requirements.txt (pip install -r requirements.txt) then run fetcher.py. 
