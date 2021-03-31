@@ -7,7 +7,7 @@ cchardet==2.1.5
 cffi==1.13.2
 chardet==3.0.4
 idna==2.8
-lxml==4.4.2
+lxml==4.6.3
 multidict==4.6.1
 pycares==3.1.0
 pycparser==2.19
